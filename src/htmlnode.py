@@ -14,7 +14,16 @@ class HTMLNode():
            self.props == OtherNode.props)
     
     def to_html(self):
-        raise NotImplementedError()
+        # raise NotImplementedError()
+        if self.tag is None:
+            return self.value
+        elif self.tag == 'p':
+            return f'<p>{self.value}</p>'
+        elif self.tag == 'a':
+            for key, prop_value in self.props.items():
+                return f'<a {key}="{prop_value}">{self.value}</a>'
+        else:
+            raise Exception("Something is wrong")
     
     def props_to_html(self):
         res = ' '
@@ -24,3 +33,26 @@ class HTMLNode():
     
     def __repr__(self):
         return f'{self.tag}\n{self.value}\n{self.children}\n{self.props}'
+    
+class LeafNode(HTMLNode):
+    def __init__(self, tag, value, props=None):
+        super().__init__(tag, value, children=None, props=props)
+
+    def to_html(self):
+        return super().to_html()
+    
+class ParentNode(HTMLNode):
+    def __init__(self, tag, children, props=None):
+        super().__init__(tag, None, children, props=props)
+
+    def to_html(self):
+        if tag is None or tag == '':
+            raise ValueError('Tag must be provided')
+        if children is None or len(children) < 1:
+            raise ValueError('Children must be provided')
+        
+        def recurse(self.tag, self.children):
+            res = ''
+            res += (f'<{self.tag}')
+
+        return super().to_html()
